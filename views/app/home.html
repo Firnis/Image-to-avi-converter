@@ -1,0 +1,43 @@
+<Body:>
+	<div class="images list">
+		{#each _page.images as :image}
+			<div class="item" x-bind="mousemove: resize, mouseup: unlock" style="background-image:url(data:{{:image.type}};base64,{{:image.data}}); width: {block_width(:image, _page.images, _page.user)}px">
+				<input type="number" value={:image.duration} min="1" max="40" />
+
+				{#if _page.user.manual_duration}
+					<span class="carret" x-bind="mousedown: lock"></span>
+					<span class="duration">00:00:{:image.duration}</span>
+				{/}
+				<div class="menu">
+					<ul class="container">
+						<li><span class="delete" x-bind="click: image.remove" >delete</span></li>
+					</ul>
+				</div>
+			</div>
+		{/}
+	</div>
+
+	<div>
+		<label>
+			<input type="checkbox" name="manual_duration" checked="{_page.user.manual_duration}" />
+			Задать вручную
+		</label>
+		{#if not(_page.user.manual_duration)}
+			<input type="number" min="5" max="60" value={_page.user.duration} />
+		{/}
+	</div>
+
+	<div>
+
+		{#if _page.user.manual_duration}
+			<div class="overall">{fullduration(_page.images, _page.duration)}</div>
+		{/}
+
+		<input type="file" name="image" x-bind="change: uploadImage" />
+
+		<a class="btn btn-large btn-success" href="/list">Try it now</a>
+	</div>
+
+	<div>
+		<a href="/make/my/awersome/video" class="btn btn-success">Поехали!</a>
+	</div>

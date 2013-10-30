@@ -1,0 +1,28 @@
+<Body:>
+  <div class="row">
+
+    <div class="span8 offset1">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Size</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each _page.videos as :video}
+            <tr>
+              <td><a href="/video/get/{{:video.id}}">{{:video.name}}</a></td>
+              <td>{{:video.size}}</td>
+              <td>{#if :video.size }Готов{else}Обрабатывается{/}</td>
+              <td>{{:video.date}}</td>
+              <td><button class="btn" x-bind="click: video.remove">Remove</button></td>
+            </tr>
+          {/}
+        </tbody>
+      </table>
+    </div>
+  </div>
